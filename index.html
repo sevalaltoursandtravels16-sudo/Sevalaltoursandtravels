@@ -1,182 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sevalal Tours & Travels</title>
+<section class="booking-form" id="booking">
+  <h2>🚗 Book Your Journey</h2>
+  <p>ದಯವಿಟ್ಟು ನಿಮ್ಮ ಪ್ರಯಾಣದ ವಿವರಗಳನ್ನು ಭರ್ತಿ ಮಾಡಿ.</p>
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+  <form id="travelBooking">
+    <label for="customerName">ನಿಮ್ಮ ಹೆಸರು *</label>
+    <input id="customerName" name="customerName"
+      required placeholder="ಪೂರ್ಣ ಹೆಸರು">
 
-body{
-  font-family:Arial,sans-serif;
-  background:#f4f4f4;
-  color:#222;
-}
+    <label for="customerPhone">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ *</label>
+    <input id="customerPhone" name="customerPhone"
+      type="tel" pattern="[0-9]{10}" maxlength="10"
+      required placeholder="10 ಅಂಕಿಗಳ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ">
 
-header{
-  background:#111;
-  color:white;
-  text-align:center;
-  padding:22px 15px;
-}
+    <label for="pickup">ಎಲ್ಲಿಂದ ಪ್ರಯಾಣ? *</label>
+    <input id="pickup" name="pickup"
+      required placeholder="ಉದಾ: ಬೆಂಗಳೂರು">
 
-header h1{
-  font-size:25px;
-  margin-bottom:6px;
-}
+    <label for="destination">ಎಲ್ಲಿಗೆ ಹೋಗಬೇಕು? *</label>
+    <input id="destination" name="destination"
+      required placeholder="ಉದಾ: ಹೊಸದುರ್ಗ">
 
-header p{
-  color:#ddd;
-}
+    <label for="travelDate">ಪ್ರಯಾಣದ ದಿನಾಂಕ *</label>
+    <input id="travelDate" name="travelDate"
+      type="date" required>
 
-.card{
-  max-width:480px;
-  margin:20px auto;
-  background:white;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 5px 20px rgba(0,0,0,.18);
-}
+    <label for="travelTime">ಪ್ರಯಾಣದ ಸಮಯ</label>
+    <input id="travelTime" name="travelTime" type="time">
 
-.car-photo{
-  width:100%;
-  display:block;
-  max-height:450px;
-  object-fit:cover;
-}
+    <label for="passengers">ಪ್ರಯಾಣಿಕರ ಸಂಖ್ಯೆ *</label>
+    <select id="passengers" name="passengers" required>
+      <option value="">ಆಯ್ಕೆ ಮಾಡಿ</option>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+    </select>
 
-.content{
-  padding:20px;
-}
+    <label for="vehicle">ವಾಹನ</label>
+    <select id="vehicle" name="vehicle">
+      <option>Suzuki Ertiga</option>
+    </select>
 
-.content h2{
-  font-size:24px;
-  margin-bottom:12px;
-}
+    <label for="extraDetails">ಹೆಚ್ಚುವರಿ ಮಾಹಿತಿ</label>
+    <textarea id="extraDetails" name="extraDetails"
+      rows="3" placeholder="ಇತರೆ ವಿವರಗಳು"></textarea>
 
-.info{
-  line-height:1.9;
-  font-size:16px;
-}
+    <button type="submit">
+      🟢 WhatsApp ಮೂಲಕ ಬುಕ್ ಮಾಡಿ
+    </button>
+  </form>
+</section>
 
-.btn{
-  display:block;
-  text-decoration:none;
-  text-align:center;
-  padding:15px;
-  margin-top:14px;
-  border-radius:12px;
-  font-size:17px;
-  font-weight:bold;
-}
+<script>
+document.getElementById("travelBooking")
+  .addEventListener("submit", function(event) {
+    event.preventDefault();
 
-.whatsapp{
-  background:#25D366;
-  color:white;
-}
+    const get = id =>
+      document.getElementById(id).value.trim();
 
-.call{
-  background:#111;
-  color:white;
-}
+    const message =
+      "SEVALAL TOURS & TRAVELS - Booking Request\n\n" +
+      "ಹೆಸರು: " + get("customerName") + "\n" +
+      "ಮೊಬೈಲ್: " + get("customerPhone") + "\n" +
+      "ಎಲ್ಲಿಂದ: " + get("pickup") + "\n" +
+      "ಎಲ್ಲಿಗೆ: " + get("destination") + "\n" +
+      "ದಿನಾಂಕ: " + get("travelDate") + "\n" +
+      "ಸಮಯ: " + (get("travelTime") || "ನಿಗದಿಪಡಿಸಿಲ್ಲ") + "\n" +
+      "ಪ್ರಯಾಣಿಕರು: " + get("passengers") + "\n" +
+      "ವಾಹನ: " + get("vehicle") + "\n" +
+      "ಹೆಚ್ಚುವರಿ ಮಾಹಿತಿ: " +
+      (get("extraDetails") || "ಇಲ್ಲ");
 
-.payment{
-  background:#f1f1f1;
-  border:2px solid #ddd;
-  color:#222;
-}
+    const whatsappURL =
+      "https://wa.me/916361888130?text=" +
+      encodeURIComponent(message);
 
-.email{
-  margin-top:18px;
-  text-align:center;
-  font-size:14px;
-  word-break:break-word;
-}
+    window.open(whatsappURL, "_blank");
+  });
+</script>
 
-.note{
-  margin-top:15px;
-  padding:13px;
-  background:#fff5cc;
-  border-radius:10px;
-  text-align:center;
-}
-
-footer{
-  text-align:center;
-  padding:20px;
-  color:#777;
-  font-size:13px;
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <h1>SEVALAL TOURS & TRAVELS</h1>
-  <p>Car Booking Service</p>
-</header>
-
-<div class="card">
-
-  <!-- ನಿಮ್ಮ Ertiga photo -->
-  <img src="ertiga.jpg"
-       alt="Suzuki Ertiga"
-       class="car-photo">
-
-  <div class="content">
-
-    <h2>🚗 Suzuki Ertiga</h2>
-
-    <div class="info">
-      👨‍✈️ <b>Driver:</b> Sagar<br>
-      📞 <b>Phone:</b> +91 63618 88130<br>
-      💳 <b>PhonePe:</b> 6361888130
-    </div>
-
-    <!-- DIRECT WHATSAPP BOOKING -->
-    <a
-      class="btn whatsapp"
-      href="https://wa.me/916361888130?text=Hello%20Sagar%2C%20I%20want%20to%20book%20the%20Suzuki%20Ertiga.%0A%0AName%3A%0APickup%20Location%3A%0ADrop%20Location%3A%0ADate%3A%0ATime%3A%0APassengers%3A"
-      target="_blank">
-      🟢 BOOK DIRECT ON WHATSAPP
-    </a>
-
-    <!-- CALL -->
-    <a
-      class="btn call"
-      href="tel:+916361888130">
-      📞 CALL SAGAR
-    </a>
-
-    <!-- PAYMENT -->
-    <a
-      class="btn payment"
-      href="tel:6361888130">
-      💳 PHONEPE: 6361888130
-    </a>
-
-    <div class="note">
-      <b>Payment Directly to Owner</b><br>
-      PhonePe: 6361888130
-    </div>
-
-    <div class="email">
-      📧 sevalaltoursandtravels16@gmail.com
-    </div>
-
-  </div>
-</div>
-
-<footer>
-  © 2026 Sevalal Tours & Travels
-</footer>
-
-</body>
-</html>
